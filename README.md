@@ -1,6 +1,6 @@
 # CalLaw
 
-**Describe your situation in plain words. CalLaw asks what it needs to know, then shows you the California laws that apply to you, quoted from the official text.**
+**Tell CalLaw what happened in your own words. It asks the right questions and finds the California laws that apply to your situation.**
 
 CalLaw is a legal information assistant for California residents. It is a hackathon prototype: it explains state law, it does not give legal advice.
 
