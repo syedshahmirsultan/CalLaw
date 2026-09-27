@@ -81,16 +81,20 @@ export default function HomePage() {
           <Link href="/" aria-label="CalLaw home" className="flex-shrink-0">
             <CalLawWordmark size={34} />
           </Link>
-          <nav className="hidden lg:flex items-center gap-8 text-sm text-ink-600">
-            <a href="#how" className="hover:text-ink-900 transition-colors">How it works</a>
-            <a href="#features" className="hover:text-ink-900 transition-colors">Features</a>
-            <a href="#trust" className="hover:text-ink-900 transition-colors">Why trust it</a>
-          </nav>
-          <div className="flex items-center gap-2">
-            <div className="hidden sm:block">
-              <ThemeToggle />
+          {/* Everything else sits on the right: section links, then actions */}
+          <div className="flex items-center gap-4 lg:gap-6">
+            <nav className="hidden lg:flex items-center gap-7 text-sm text-ink-600">
+              <a href="#how" className="hover:text-ink-900 transition-colors">How it works</a>
+              <a href="#features" className="hover:text-ink-900 transition-colors">Features</a>
+              <a href="#trust" className="hover:text-ink-900 transition-colors">Why trust it</a>
+            </nav>
+            <span className="hidden lg:block h-6 w-px bg-paper-300" aria-hidden />
+            <div className="flex items-center gap-3">
+              <div className="hidden sm:block">
+                <ThemeToggle />
+              </div>
+              <NavAuth />
             </div>
-            <NavAuth />
           </div>
         </div>
       </header>

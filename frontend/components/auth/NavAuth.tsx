@@ -19,6 +19,7 @@ export function NavAuth() {
   return (
     <>
       <SignedOut>
+        <div className="flex items-center gap-2">
         <Link
           href="/sign-in"
           className="hidden sm:inline-flex text-sm font-semibold text-ink-700 hover:text-ink-950 px-3 py-2 rounded-xl hover:bg-paper-200/70 transition-colors"
@@ -32,17 +33,20 @@ export function NavAuth() {
           Sign up
           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
         </Link>
+        </div>
       </SignedOut>
       <SignedIn>
-        <Link
-          href="/chat"
-          className="btn-primary group inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-xl shadow-card"
-        >
-          <MessageSquarePlus className="w-4 h-4" />
-          <span className="hidden sm:inline">Ask a question</span>
-          <span className="sm:hidden">Ask</span>
-        </Link>
-        <AccountMenu />
+        <div className="flex items-center gap-3">
+          <Link
+            href="/chat"
+            className="btn-primary group inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-xl shadow-card"
+          >
+            <MessageSquarePlus className="w-4 h-4" />
+            <span className="hidden sm:inline">Ask a question</span>
+            <span className="sm:hidden">Ask</span>
+          </Link>
+          <AccountMenu />
+        </div>
       </SignedIn>
     </>
   );
