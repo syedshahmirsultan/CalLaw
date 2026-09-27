@@ -1,0 +1,369 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme tokens (RGB channels, consumed by tailwind.config.ts) ───────────── */
+:root {
+  /* ink: text & primary actions */
+  --ink-50: 242 244 248;
+  --ink-100: 227 232 240;
+  --ink-200: 197 206 221;
+  --ink-300: 152 166 190;
+  --ink-400: 107 124 153;
+  --ink-500: 74 91 120;
+  --ink-600: 52 67 94;
+  --ink-700: 36 49 73;
+  --ink-800: 23 34 56;
+  --ink-900: 14 23 40;
+  --ink-950: 8 14 26;
+
+  /* paper: page backgrounds & fills */
+  --paper-50: 253 252 249;
+  --paper-100: 248 246 241;
+  --paper-200: 239 235 226;
+  --paper-300: 227 221 208;
+  --paper-400: 207 199 182;
+
+  --surface: 255 255 255;
+
+  /* gold: California accent */
+  --gold-50: 251 246 234;
+  --gold-100: 245 233 203;
+  --gold-200: 235 211 150;
+  --gold-300: 223 185 95;
+  --gold-400: 212 164 59;
+  --gold-500: 185 138 38;
+  --gold-600: 148 109 29;
+  --gold-700: 111 82 23;
+
+  /* sage: verified */
+  --sage-50: 238 246 241;
+  --sage-100: 214 234 223;
+  --sage-500: 60 139 99;
+  --sage-600: 47 115 80;
+  --sage-700: 37 91 64;
+
+  /* night & cream: fixed palettes that never flip */
+  --night-50: 242 244 248;
+  --night-100: 227 232 240;
+  --night-200: 197 206 221;
+  --night-300: 152 166 190;
+  --night-400: 107 124 153;
+  --night-500: 74 91 120;
+  --night-600: 52 67 94;
+  --night-700: 36 49 73;
+  --night-800: 23 34 56;
+  --night-900: 14 23 40;
+  --night-950: 8 14 26;
+  --cream-50: 253 252 249;
+  --cream-100: 248 246 241;
+  --cream-200: 239 235 226;
+  --cream-300: 227 221 208;
+  --cream-400: 207 199 182;
+
+  /* Component roles */
+  --primary: var(--ink-900);
+  --primary-hover: var(--ink-800);
+  --on-primary: var(--paper-50);
+  --accent-chip: var(--ink-900);
+  --on-accent-chip: var(--gold-300);
+  --bubble: var(--ink-900);
+  --on-bubble: var(--paper-50);
+
+  --shadow-card: 0 1px 2px rgba(14, 23, 40, 0.04), 0 4px 16px -4px rgba(14, 23, 40, 0.08);
+  --shadow-lift: 0 2px 4px rgba(14, 23, 40, 0.05), 0 12px 32px -8px rgba(14, 23, 40, 0.16);
+
+  color-scheme: light;
+}
+
+.dark {
+  --ink-50: 26 36 54;
+  --ink-100: 38 49 70;
+  --ink-200: 60 72 96;
+  --ink-300: 96 108 132;
+  --ink-400: 124 136 158;
+  --ink-500: 152 162 181;
+  --ink-600: 180 188 203;
+  --ink-700: 212 216 225;
+  --ink-800: 230 226 216;
+  --ink-900: 244 240 231;
+  --ink-950: 255 255 255;
+
+  --paper-50: 16 24 40;
+  --paper-100: 10 16 29;
+  --paper-200: 27 37 57;
+  --paper-300: 39 51 74;
+  --paper-400: 60 73 98;
+
+  --surface: 19 28 46;
+
+  --gold-50: 36 31 19;
+  --gold-100: 56 46 22;
+  --gold-200: 92 74 32;
+  --gold-300: 226 190 104;
+  --gold-400: 214 168 66;
+  --gold-500: 222 180 88;
+  --gold-600: 232 199 124;
+  --gold-700: 241 216 155;
+
+  --sage-50: 18 40 31;
+  --sage-100: 30 64 48;
+  --sage-500: 98 188 141;
+  --sage-600: 112 198 153;
+  --sage-700: 140 214 175;
+
+  --primary: var(--gold-400);
+  --primary-hover: var(--gold-300);
+  --on-primary: var(--night-900);
+  --accent-chip: var(--gold-400);
+  --on-accent-chip: var(--night-900);
+  --bubble: 39 52 78;
+  --on-bubble: 244 240 231;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.35), 0 16px 40px -12px rgba(0, 0, 0, 0.6);
+
+  color-scheme: dark;
+}
+
+body {
+  color: rgb(var(--ink-900));
+  background-color: rgb(var(--paper-100));
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection {
+  background: rgb(var(--gold-200));
+  color: rgb(var(--ink-950));
+}
+
+/* Quiet scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgb(var(--paper-300)); border-radius: 8px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--paper-400)); background-clip: padding-box; }
+
+:focus-visible { outline: 2px solid rgb(var(--gold-400)); outline-offset: 2px; }
+
+/* ── Shared components ───────────────────────────────────────────────────── */
+@layer components {
+  /* Main call-to-action: navy on light, gold on dark */
+  .btn-primary {
+    background-color: rgb(var(--primary));
+    color: rgb(var(--on-primary));
+    transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary:hover { background-color: rgb(var(--primary-hover)); }
+  .btn-primary:disabled {
+    background-color: rgb(var(--paper-200));
+    color: rgb(var(--ink-300));
+    cursor: not-allowed;
+  }
+
+  /* Small icon/number badges */
+  .chip-accent {
+    background-color: rgb(var(--accent-chip));
+    color: rgb(var(--on-accent-chip));
+  }
+
+  /* The user's own chat bubble */
+  .bubble-user {
+    background-color: rgb(var(--bubble));
+    color: rgb(var(--on-bubble));
+  }
+}
+
+/* ── Assistant markdown ─────────────────────────────────────────────────── */
+.md {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: rgb(var(--ink-700));
+}
+.md > * + * { margin-top: 0.8rem; }
+.md h1, .md h2, .md h3, .md h4 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 600;
+  color: rgb(var(--ink-900));
+  line-height: 1.3;
+  margin-top: 1.4rem;
+  letter-spacing: -0.01em;
+}
+.md h3 { font-size: 1.05rem; }
+.md h2 { font-size: 1.15rem; }
+.md > :first-child { margin-top: 0; }
+.md strong { font-weight: 650; color: rgb(var(--ink-900)); }
+.md ul, .md ol { padding-left: 1.25rem; }
+.md ul { list-style: disc; }
+.md ol { list-style: decimal; }
+.md li + li { margin-top: 0.35rem; }
+.md li::marker { color: rgb(var(--gold-400)); }
+.md a {
+  color: rgb(var(--ink-900));
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgb(var(--gold-300));
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+  transition: background-color 0.15s;
+  border-radius: 3px;
+}
+.md a:hover { background: rgb(var(--gold-50)); }
+.md blockquote {
+  border-left: 3px solid rgb(var(--gold-300));
+  padding-left: 0.9rem;
+  color: rgb(var(--ink-600));
+  font-family: var(--font-fraunces), Georgia, serif;
+}
+.md code {
+  font-size: 0.8rem;
+  background: rgb(var(--paper-200));
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.3rem;
+}
+.md-headline {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.45;
+  font-weight: 500;
+  color: rgb(var(--ink-900));
+  letter-spacing: -0.01em;
+}
+.md-headline strong { font-weight: 500; }
+
+@keyframes callaw-fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: callaw-fade-up 0.35s ease-out both; }
+
+@keyframes callaw-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg, rgb(var(--ink-800)) 30%, rgb(var(--gold-500)) 50%, rgb(var(--ink-800)) 70%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: callaw-shimmer 2.4s linear infinite;
+}
+
+.bg-grain {
+  background-image: radial-gradient(rgb(var(--ink-900) / 0.04) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, .shimmer-text { animation: none; }
+  .shimmer-text { color: rgb(var(--ink-800)); }
+  body { transition: none; }
+}
+
+/* ── Motion ──────────────────────────────────────────────────────────────── */
+@keyframes callaw-pop-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.pop-in { animation: callaw-pop-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2) both; }
+
+/* The scales in the logo gently balance */
+@keyframes callaw-sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+.logo-sway .logo-beam { transform-origin: 32px 26.6px; animation: callaw-sway 3.2s ease-in-out infinite; }
+.logo-sway .logo-star { transform-origin: 32px 16px; animation: callaw-twinkle 3.2s ease-in-out infinite; }
+@keyframes callaw-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.85); }
+}
+
+/* Infinite marquee (content is duplicated once) */
+@keyframes callaw-marquee { to { transform: translateX(-50%); } }
+.marquee-track { animation: callaw-marquee var(--marquee-duration, 60s) linear infinite; }
+.marquee-track.reverse { animation-direction: reverse; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Scroll reveal (toggled by <Reveal>) */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Gold highlighter sweep behind important words */
+.highlight-sweep {
+  background-image: linear-gradient(rgb(var(--gold-200) / 0.75), rgb(var(--gold-200) / 0.75));
+  background-repeat: no-repeat;
+  background-size: 0% 38%;
+  background-position: 0 88%;
+  transition: background-size 0.9s cubic-bezier(0.6, 0, 0.2, 1);
+}
+.dark .highlight-sweep { background-image: linear-gradient(rgb(var(--gold-400) / 0.28), rgb(var(--gold-400) / 0.28)); }
+.highlight-sweep.is-on { background-size: 100% 38%; }
+
+/* Blinking caret for typed text */
+@keyframes callaw-caret { 50% { opacity: 0; } }
+.caret::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: currentColor;
+  animation: callaw-caret 1s step-end infinite;
+}
+
+/* Indeterminate progress bar */
+@keyframes callaw-indeterminate {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+.progress-indeterminate { animation: callaw-indeterminate 1.4s ease-in-out infinite; }
+
+/* Mouse-follow spotlight for cards (see <Spotlight>) */
+.spotlight { position: relative; isolation: isolate; }
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(var(--gold-300) / 0.14), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+.spotlight:hover::before { opacity: 1; }
+
+/* Slow drifting background glow */
+@keyframes callaw-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 30px) scale(1.08); }
+  66% { transform: translate(30px, -20px) scale(0.95); }
+}
+.drift { animation: callaw-drift 18s ease-in-out infinite; }
+
+/* Rotating word in headlines */
+@keyframes callaw-word-in {
+  from { opacity: 0; transform: translateY(0.45em); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.word-in { display: inline-block; animation: callaw-word-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+@keyframes callaw-grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.grow-x { animation: callaw-grow-x 0.8s cubic-bezier(0.6, 0, 0.2, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .grow-x, .pop-in, .word-in, .drift, .marquee-track, .progress-indeterminate,
+  .logo-sway .logo-beam, .logo-sway .logo-star { animation: none !important; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .highlight-sweep { background-size: 100% 38%; transition: none; }
+  .caret::after { animation: none; }
+}
