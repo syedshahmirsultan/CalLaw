@@ -141,3 +141,11 @@ def test_bold_words_followed_by_commas_are_not_turned_into_colons():
     em = "\u2014"
     text = f"It may be a **city ordinance**, **federal law**, or a contract {em} which CalLaw can't verify."
     assert grounding.remove_em_dashes(text) == "It may be a **city ordinance**, **federal law**, or a contract, which CalLaw can't verify."
+
+
+def test_heroku_database_url_is_adapted_for_asyncpg():
+    from app.db.database import normalize_database_url
+    url, args = normalize_database_url("postgres://u:p@ec2-1-2-3-4.compute-1.amazonaws.com:5432/db?sslmode=require")
+    assert url == "postgresql+asyncpg://u:p@ec2-1-2-3-4.compute-1.amazonaws.com:5432/db"
+    assert args == {"ssl": "require"}
+    assert normalize_database_url("sqlite+aiosqlite:///./x.db")[1] == {"check_same_thread": False}

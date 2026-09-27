@@ -11,17 +11,37 @@ from sqlalchemy.orm import declarative_base
 from app.core.config import settings
 from app.core.logging import logger
 
-# Configure engine arguments
-engine_args = {
-    "echo": False,
-    "future": True,
-}
+def normalize_database_url(url: str) -> tuple[str, dict]:
+    """Adapt hosted Postgres URLs (Railway, Heroku, Render: `postgres(ql)://...`) for asyncpg.
 
-# Add SQLite specific arguments if SQLite is used
-if settings.DATABASE_URL.startswith("sqlite"):
-    engine_args["connect_args"] = {"check_same_thread": False}
+    Returns the SQLAlchemy URL and extra connect_args.
+    """
+    if url.startswith("sqlite"):
+        return url, {"check_same_thread": False}
+    if url.startswith("postgres://"):
+        url = "postgresql+asyncpg://" + url[len("postgres://"):]
+    elif url.startswith("postgresql://"):
+        url = "postgresql+asyncpg://" + url[len("postgresql://"):]
+    connect_args: dict = {}
+    # asyncpg does not understand libpq's sslmode parameter; translate it.
+    if "sslmode=" in url:
+        base, _, query = url.partition("?")
+        params = [p for p in query.split("&") if p and not p.startswith("sslmode=")]
+        url = base + ("?" + "&".join(params) if params else "")
+        connect_args["ssl"] = "require"
+    elif "amazonaws.com" in url:
+        # AWS-hosted Postgres (e.g. Heroku) requires SSL even when the URL does not say so.
+        connect_args["ssl"] = "require"
+    return url, connect_args
 
-engine = create_async_engine(settings.DATABASE_URL, **engine_args)
+
+DATABASE_URL, _connect_args = normalize_database_url(settings.DATABASE_URL)
+
+engine_args = {"echo": False, "future": True, "pool_pre_ping": True}
+if _connect_args:
+    engine_args["connect_args"] = _connect_args
+
+engine = create_async_engine(DATABASE_URL, **engine_args)
 
 AsyncSessionLocal = async_sessionmaker(
     bind=engine,
