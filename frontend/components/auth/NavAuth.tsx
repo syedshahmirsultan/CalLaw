@@ -19,7 +19,7 @@ export function NavAuth() {
   return (
     <>
       <SignedOut>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
         <Link
           href="/sign-in"
           className="hidden sm:inline-flex text-sm font-semibold text-ink-700 hover:text-ink-950 px-3 py-2 rounded-xl hover:bg-paper-200/70 transition-colors"
@@ -36,7 +36,7 @@ export function NavAuth() {
         </div>
       </SignedOut>
       <SignedIn>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-5">
           <Link
             href="/chat"
             className="btn-primary group inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2.5 rounded-xl shadow-card"

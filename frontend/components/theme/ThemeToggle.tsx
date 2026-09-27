@@ -28,7 +28,7 @@ const OPTIONS: { value: ThemeChoice; label: string; icon: typeof Sun }[] = [
 /**
  * Three-way theme switch. `tone="night"` is for the always-dark sidebar.
  */
-export function ThemeToggle({ tone = "auto" }: { tone?: "auto" | "night" }) {
+export function ThemeToggle({ tone = "auto", compact = false }: { tone?: "auto" | "night"; compact?: boolean }) {
   const [choice, setChoice] = useState<ThemeChoice>("system");
   const [mounted, setMounted] = useState(false);
 
@@ -57,6 +57,28 @@ export function ThemeToggle({ tone = "auto" }: { tone?: "auto" | "night" }) {
   };
 
   const night = tone === "night";
+
+  if (compact) {
+    // One button that cycles Light -> Dark -> System; keeps busy toolbars uncluttered.
+    const current = OPTIONS.find((o) => o.value === choice) ?? OPTIONS[1];
+    const next = OPTIONS[(OPTIONS.findIndex((o) => o.value === choice) + 1) % OPTIONS.length];
+    const Icon = current.icon;
+    return (
+      <button
+        type="button"
+        onClick={() => select(next.value)}
+        aria-label={`Theme: ${current.label}. Switch to ${next.label}`}
+        title={`Theme: ${current.label} (click for ${next.label})`}
+        className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-colors ${
+          night
+            ? "border-night-700 text-night-200 hover:text-cream-50 hover:bg-night-800"
+            : "border-paper-300 bg-surface/70 text-ink-600 hover:text-ink-900 hover:border-gold-300"
+        }`}
+      >
+        <Icon className="w-[18px] h-[18px]" />
+      </button>
+    );
+  }
   return (
     <div
       role="radiogroup"
